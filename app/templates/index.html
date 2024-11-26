@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}  
+
+<div class="container mt-4">
+    <!-- Header and info Section -->
+    <div class="text-center p-5 mb-5 card">
+        <h1 class="display-4">Welcome to Stationary Stop</h1>
+        <p class="lead"><b>Your first stop for the top stationary.</b></p>
+        <p class="lead">Discover amazing products at unbeatable prices.</p>
+        <a href="{{ url_for('products') }}" class="btn btn-primary btn-lg mt-3">Shop Now</a>
+    </div>       
+
+
+    <!-- Featured Products Section -->
+    <div class="featured-products">
+        <h2 class="mb-4 text-center">Featured Products</h2>
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="/static/images/{{ product.image }}" class="card-img-top" alt="{{ product.name }}">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">£{{ "%.2f"|format(product.price) }}</p>
+                        <a href="{{ url_for('product_detail', product_id=product.id) }}" class="btn btn-outline-primary btn-sm">View Details</a>
+                        <!-- View image credits in static/images/credits.txt -->
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}

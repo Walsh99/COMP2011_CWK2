@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Account{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-4">Update Your Account</h1>
+    <!-- account edit form -->
+    <div class="card shadow-sm my-5">
+        <div class="card-body">
+            <form method="POST" action="{{ url_for('account') }}">
+                <!-- use flask wtf + csrf token -->
+                {{ form.hidden_tag() }}
+                <!-- Old Password -->
+                <div class="mb-3">
+                    {{ form.old_password.label(class="form-label") }}
+                    {{ form.old_password(class="form-control", placeholder="Enter your current password") }}
+                    {% for error in form.old_password.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+                <!-- First Name -->
+                <div class="mb-3">
+                    {{ form.first_name.label(class="form-label") }}
+                    {{ form.first_name(class="form-control", placeholder="Enter your first name") }}
+                    {% for error in form.first_name.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+                <!-- Last Name -->
+                <div class="mb-3">
+                    {{ form.last_name.label(class="form-label") }}
+                    {{ form.last_name(class="form-control", placeholder="Enter your last name") }}
+                    {% for error in form.last_name.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                    {{ form.email.label(class="form-label") }}
+                    {{ form.email(class="form-control", placeholder="Enter your email") }}
+                    {% for error in form.email.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+                <!-- Password Change Toggle -->
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="changePasswordCheck" onclick="togglePasswordFields()">
+                    <label class="form-check-label" for="changePasswordCheck">Change Password</label>
+                </div>
+
+                <!-- New Password -->
+                <div class="mb-3 password-fields d-none">
+                    {{ form.new_password.label(class="form-label") }}
+                    {{ form.new_password(class="form-control", placeholder="Enter your new password") }}
+                    {% for error in form.new_password.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+                <!-- Confirm New Password -->
+                <div class="mb-3 password-fields d-none">
+                    {{ form.confirm_new_password.label(class="form-label") }}
+                    {{ form.confirm_new_password(class="form-control", placeholder="Re-enter your new password") }}
+                    {% for error in form.confirm_new_password.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary w-100">{{ form.submit.label }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/account.js') }}"></script>
+{% endblock %}

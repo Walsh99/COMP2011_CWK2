@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Products{% endblock %}
+
+{% block content %}
+
+<h1 class="text-center mb-4">Products</h1>
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+        <!-- Sort by selection-->
+        <div>
+            <label for="sort-by" class="me-2 fw-bold">Sort by:</label>
+            <select id="sort-by" class="form-select w-auto d-inline-block">
+                <option value="a-to-z" selected>Default: A-Z</option>
+                <option value="low-to-high">Price: Low to High</option>
+                <option value="high-to-low">Price: High to Low</option>
+            </select>
+        </div>
+        <!-- Items per page -->
+        <div>
+            <label for="products-per-page" class="me-2 fw-bold">Items per page:</label>
+            <select id="products-per-page" class="form-select w-auto d-inline-block">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+
+<div class="container mt-4">
+    <!-- Product Grid -->
+    <div id="product-container" class="row g-4"></div>
+    <!-- Pagination Controls -->
+    <div id="pagination-controls" class="d-flex justify-content-center align-items-center mt-4">
+        <button id="prev-page" class="btn btn-outline-primary me-3" disabled>Previous</button>
+        <span id="page-info" class="mx-2"></span>
+        <button id="next-page" class="btn btn-outline-primary ms-3">Next</button>
+    </div>
+</div>
+
+{% endblock %}
+
+<!-- scripts for page-->
+{% block scripts %}
+<!-- Define the products variable in js by passing serialized json data from the flask view -->
+<script>const products = {{ products | tojson}};</script>
+<script src="{{ url_for('static', filename='js/products.js') }}"></script>
+{% endblock %}
